@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import ReactDOM from "react-dom";
+import "./styles/main.scss"
 
 import Display from "./components/display";
 
