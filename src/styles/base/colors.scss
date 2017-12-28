@@ -1,0 +1,18 @@
+$mainColors: (
+  red: $mainRed,
+  red--orange: $secondaryRed,
+  orange: $mainOrange,
+  green: $mainGreen,
+  yellow: $mainYellow,
+  grey: $mainGrey
+);
+
+@each $colorName, $color in $mainColors {
+  .#{$colorName} {
+    background-color: #{$color};
+  }
+
+  .#{$colorName}--text {
+    color: #{$color};
+  }
+}

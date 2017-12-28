@@ -105,32 +105,38 @@ class Clock extends Component {
       const seconds = this.state.time % 60;
 
       if (this.state.on) {
-        var startStopBtn = <button onClick={this.stopTimer.bind(this)}>Stop</button>;
+        var startStopBtn = <button className="btn grey" onClick={this.stopTimer.bind(this)}>Stop</button>;
       } else {
-        var startStopBtn = <button onClick={this.startTimer.bind(this)}>Start</button>;
+        var startStopBtn = <button className="btn green" onClick={this.startTimer.bind(this)}>Start</button>;
       }
 
-      var endBreakBtn = this.state.onBreak ? <button onClick={this.endBreak.bind(this)}> End Break</button> : null;
+      if (this.state.onBreak) {
+        var message = <p className="green--text">"Break!"</p>
+      } else {
+        var message = <p className="yellow--text">"Get Cracking!"</p>
+      }
+
+      var endBreakBtn = this.state.onBreak ? <button className="btn red" onClick={this.endBreak.bind(this)}> End Break</button> : null;
 
       return (
-        <div>
-          <div>Tomatoes Smashed: {this.state.pomodoroCount}</div>
-          <div>{this.state.onBreak
-              ? "Break!"
-              : "Get Cracking!"}</div>
-          <input onChange={event => this.setMinutes(event.target.value)} value={minutes} disabled={this.state.on || this.state.onBreak}/>
-          :
-          <input onChange={event => this.setSeconds(event.target.value)} value={seconds} disabled={this.state.on || this.state.onBreak}/> {startStopBtn}
-          <button onClick={this.resetTimer.bind(this)}>Reset</button>
-          {endBreakBtn}
-          <label>5
-            <input type="radio" name="breakTime" value="5" onClick={event => this.setBreakTime(event.target.value)} defaultChecked/></label>
-          <label>10
-            <input type="radio" name="breakTime" value="10" onClick={event => this.setBreakTime(event.target.value)}/></label>
-          <label>15
-            <input type="radio" name="breakTime" value="15" onClick={event => this.setBreakTime(event.target.value)}/></label>
-          <label>20
-            <input type="radio" name="breakTime" value="20" onClick={event => this.setBreakTime(event.target.value)}/></label>
+        <div className="container center center--text red--orange">
+          <div className="center">
+            <div>Tomatoes Smashed: {this.state.pomodoroCount}</div>
+            {message}
+            <input className="timer__display" onChange={event => this.setMinutes(event.target.value)} value={minutes} disabled={this.state.on || this.state.onBreak}/>
+            :
+            <input className="timer__display" onChange={event => this.setSeconds(event.target.value)} value={seconds} disabled={this.state.on || this.state.onBreak}/> {startStopBtn}
+            <button className="btn yellow" onClick={this.resetTimer.bind(this)}>Reset</button>
+            {endBreakBtn}
+            <label>5
+              <input type="radio" name="breakTime" value="5" onClick={event => this.setBreakTime(event.target.value)} defaultChecked/></label>
+            <label>10
+              <input type="radio" name="breakTime" value="10" onClick={event => this.setBreakTime(event.target.value)}/></label>
+            <label>15
+              <input type="radio" name="breakTime" value="15" onClick={event => this.setBreakTime(event.target.value)}/></label>
+            <label>20
+              <input type="radio" name="breakTime" value="20" onClick={event => this.setBreakTime(event.target.value)}/></label>
+          </div>
         </div>
       )
     }
