@@ -12,7 +12,8 @@ class Clock extends Component {
       time: 0,
       minutes: 0,
       seconds: 0,
-      breakTimeMins: 5
+      breakTimeMinsShort: 5,
+      breakTimeMinsLong: 5
     }
   }
 
@@ -45,9 +46,9 @@ class Clock extends Component {
     }
 
     setMinutes(minutes) {
-      minutes = Number(minutes);
+      if (!isNaN(Number(minutes))) {
+        minutes = Number(minutes.slice(-2));
 
-      if (minutes) {
         this.setState({
           minutes,
           time: minutes * 60 + this.state.seconds
@@ -56,8 +57,9 @@ class Clock extends Component {
     }
 
     setSeconds(seconds) {
-      if (seconds.length <= 2 && !isNaN(Number(seconds))) {
-        seconds = Number(seconds);
+      if (!isNaN(Number(seconds))) {
+        seconds = Number(seconds.slice(-2));
+        seconds = seconds > 60 ? 59 : seconds
 
         this.setState({
           seconds,
@@ -86,13 +88,27 @@ class Clock extends Component {
       }
     }
 
+    setBreakTimeShort(minutes) {
+      this.setState({breakTimeMinsShort: minutes});
+      if (this.state.onBreak && !this.state.on && this.state.pomodoroCount % 3 !== 0) {
+        this.setState({time: minutes * 60});
+      }
+    }
+
+    setBreakTimeLong(minutes) {
+      this.setState({breakTimeMinsLong: minutes});
+      if (this.state.onBreak && !this.state.on && this.state.pomodoroCount % 3 === 0) {
+        this.setState({time: minutes * 60});
+      }
+    }
+
     startBreak() {
       this.stopTimer();
       this.setState({
         on: false,
         onBreak: true,
         pomodoroCount: this.state.pomodoroCount + 1,
-        time: this.state.breakTimeMins * 60
+        time: (this.state.pomodoroCount + 1) % 3 === 0 ? this.state.breakTimeMinsLong * 60 : this.state.breakTimeMinsShort * 60
       })
     }
 
@@ -105,37 +121,54 @@ class Clock extends Component {
       const seconds = this.state.time % 60;
 
       if (this.state.on) {
-        var startStopBtn = <button className="btn grey" onClick={this.stopTimer.bind(this)}>Stop</button>;
+        var startStopBtn = <button className="btn grey center--horizontal" onClick={this.stopTimer.bind(this)}>Stop</button>;
       } else {
-        var startStopBtn = <button className="btn green" onClick={this.startTimer.bind(this)}>Start</button>;
+        var startStopBtn = <button className="btn green center--horizontal" onClick={this.startTimer.bind(this)}>Start</button>;
       }
 
       if (this.state.onBreak) {
-        var message = <p className="green--text">"Break!"</p>
+        var message = <p className="green--text">{this.state.pomodoroCount % 3 === 0 ? "Long Break!" : "Break!"}</p>
       } else {
-        var message = <p className="yellow--text">"Get Cracking!"</p>
+        var message = <p className="yellow--text">Get Cracking!</p>
       }
 
-      var endBreakBtn = this.state.onBreak ? <button className="btn red" onClick={this.endBreak.bind(this)}> End Break</button> : null;
+      var endBreakBtn = this.state.onBreak ? <button className="btn red center--horizontal" onClick={this.endBreak.bind(this)}> End Break</button> : null;
 
       return (
-        <div className="container center center--text red--orange">
-          <div className="center">
+        <div className="container center--text red--orange">
+          <div className="center--vertical">
             <div>Tomatoes Smashed: {this.state.pomodoroCount}</div>
             {message}
-            <input className="timer__display" onChange={event => this.setMinutes(event.target.value)} value={minutes} disabled={this.state.on || this.state.onBreak}/>
-            :
-            <input className="timer__display" onChange={event => this.setSeconds(event.target.value)} value={seconds} disabled={this.state.on || this.state.onBreak}/> {startStopBtn}
-            <button className="btn yellow" onClick={this.resetTimer.bind(this)}>Reset</button>
+            <div className="timer">
+            <input className="timer__display" onChange={event => this.setMinutes(event.target.value)} value={`00${minutes}`.slice(-2)} disabled={this.state.on || this.state.onBreak}/>
+            <span className="timer__colon">:</span>
+            <input className="timer__display" onChange={event => this.setSeconds(event.target.value)} value={`00${seconds}`.slice(-2)} disabled={this.state.on || this.state.onBreak}/>
+            </div>
+            {startStopBtn}
+            <button className="btn yellow center--horizontal" onClick={this.resetTimer.bind(this)}>Reset</button>
             {endBreakBtn}
-            <label>5
-              <input type="radio" name="breakTime" value="5" onClick={event => this.setBreakTime(event.target.value)} defaultChecked/></label>
-            <label>10
-              <input type="radio" name="breakTime" value="10" onClick={event => this.setBreakTime(event.target.value)}/></label>
-            <label>15
-              <input type="radio" name="breakTime" value="15" onClick={event => this.setBreakTime(event.target.value)}/></label>
-            <label>20
-              <input type="radio" name="breakTime" value="20" onClick={event => this.setBreakTime(event.target.value)}/></label>
+            <div className="timer__break-options margin--two-rem-right">
+              <p>Short Break (Mins)</p>
+              <label className="timer__break-options__choices">
+              <input type="radio" name="breakTimeShort" value="5" onClick={event => this.setBreakTimeShort(event.target.value)} defaultChecked/> 5</label>
+              <label className="timer__break-options__choices">
+              <input type="radio" name="breakTimeShort" value="10" onClick={event => this.setBreakTimeShort(event.target.value)}/> 10</label>
+              <label className="timer__break-options__choices">
+              <input type="radio" name="breakTimeShort" value="15" onClick={event => this.setBreakTimeShort(event.target.value)}/> 15</label>
+              <label className="timer__break-options__choices">
+              <input type="radio" name="breakTimeShort" value="20" onClick={event => this.setBreakTimeShort(event.target.value)}/> 20</label>
+            </div>
+            <div className="timer__break-options">
+              <p>Long Break (Mins)</p>
+              <label className="timer__break-options__choices">
+              <input type="radio" name="breakTimeLong" value="5" onClick={event => this.setBreakTimeLong(event.target.value)} defaultChecked/> 5</label>
+              <label className="timer__break-options__choices">
+              <input type="radio" name="breakTimeLong" value="10" onClick={event => this.setBreakTimeLong(event.target.value)}/> 10</label>
+              <label className="timer__break-options__choices">
+              <input type="radio" name="breakTimeLong" value="15" onClick={event => this.setBreakTimeLong(event.target.value)}/> 15</label>
+              <label className="timer__break-options__choices">
+              <input type="radio" name="breakTimeLong" value="20" onClick={event => this.setBreakTimeLong(event.target.value)}/> 20</label>
+            </div>
           </div>
         </div>
       )

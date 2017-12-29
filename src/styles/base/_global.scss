@@ -1,0 +1,23 @@
+@import url('https://fonts.googleapis.com/css?family=Mukta+Malar:400,700');
+
+* {
+  box-sizing: border-box;
+  outline: none;
+}
+
+body {
+  color: white;
+  font-family: "Mukta Malar", "Helvetica", sans-serif;
+
+  @include media($mediumScreen) {
+    font-size: 1.3rem;
+  }
+
+  @include media($largeScreen) {
+    font-size: 1.5rem;
+  }
+}
+
+input {
+
+}

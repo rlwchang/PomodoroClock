@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import "normalize.css";
 import "./styles/main.scss";
 
-import Display from "./components/display";
+import Display from "./components/clock";
 
 class App extends Component {
 

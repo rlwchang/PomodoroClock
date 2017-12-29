@@ -1,7 +1,8 @@
-@import "./base/variables";
-@import "./base/global";
-@import "./base/colors";
-@import "./base/layout";
-@import "./modules/btn";
-@import "./modules/container";
-@import "./modules/timer";
+@import "./base/_variables";
+@import "./base/_mixins";
+@import "./base/_global";
+@import "./base/_colors";
+@import "./base/_layout";
+@import "./modules/_btn";
+@import "./modules/_container";
+@import "./modules/_timer";

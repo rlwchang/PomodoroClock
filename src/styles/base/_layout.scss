@@ -1,0 +1,35 @@
+.center {
+  &--horizontal {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  &--vertical {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  &--text {
+    text-align: center;
+  }
+}
+
+$sidesList: (
+  top,
+  bottom,
+  left,
+  right
+);
+
+@each $side in $sidesList {
+  .margin--no-#{$side} {
+    margin-#{$side}: 0;
+  }
+}
+
+@each $side in $sidesList {
+  .margin--two-rem-#{$side} {
+    margin-#{$side}: 2rem;
+  }
+}
