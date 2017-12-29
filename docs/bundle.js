@@ -69,7 +69,7 @@ _reactDom2.default.render(_react2.default.createElement(App, null), document.que
 /***/ 28:
 /***/ (function(module, exports) {
 
-throw new Error("Module build failed: ModuleBuildError: Module build failed: \r\n  @mixin at#{$size}{\r\n        ^\r\n      Invalid CSS after \"  @mixin at\": expected \"{\", was \"#{$size}{\"\r\n      in C:\\Users\\Chang\\Desktop\\Projects\\PomodoroClock\\src\\styles\\base\\_mixins.scss (line 8, column 10)\n    at runLoaders (C:\\Users\\Chang\\Desktop\\Projects\\PomodoroClock\\node_modules\\webpack\\lib\\NormalModule.js:195:19)\n    at C:\\Users\\Chang\\Desktop\\Projects\\PomodoroClock\\node_modules\\loader-runner\\lib\\LoaderRunner.js:364:11\n    at C:\\Users\\Chang\\Desktop\\Projects\\PomodoroClock\\node_modules\\loader-runner\\lib\\LoaderRunner.js:230:18\n    at context.callback (C:\\Users\\Chang\\Desktop\\Projects\\PomodoroClock\\node_modules\\loader-runner\\lib\\LoaderRunner.js:111:13)\n    at Object.asyncSassJobQueue.push [as callback] (C:\\Users\\Chang\\Desktop\\Projects\\PomodoroClock\\node_modules\\sass-loader\\lib\\loader.js:55:13)\n    at Object.<anonymous> (C:\\Users\\Chang\\Desktop\\Projects\\PomodoroClock\\node_modules\\async\\dist\\async.js:2257:31)\n    at Object.callback (C:\\Users\\Chang\\Desktop\\Projects\\PomodoroClock\\node_modules\\async\\dist\\async.js:958:16)\n    at options.error (C:\\Users\\Chang\\Desktop\\Projects\\PomodoroClock\\node_modules\\node-sass\\lib\\index.js:294:32)");
+// removed by extract-text-webpack-plugin
 
 /***/ }),
 
